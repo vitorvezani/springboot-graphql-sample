@@ -1,7 +1,14 @@
 type Book {
     id: Int!
     name: String!
+    wikiInfo: String!
+    status: Status!
     author: Author!
+}
+
+enum Status {
+  ACTIVE
+  DISABLED
 }
 
 type Author {

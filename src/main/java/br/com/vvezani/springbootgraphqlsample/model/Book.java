@@ -1,26 +1,38 @@
 package br.com.vvezani.springbootgraphqlsample.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Book {
 
+  enum Status {
+    ACTIVE, DISABLED
+  }
+
+  public Book() {
+  }
+
+  public Book(String name, Author author) {
+    this.name = name;
+    this.author = author;
+  }
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
+  private Long id;
 
   private String name;
 
-  private Long authorId;
+  @OneToOne
+  private Author author;
 
-  public int getId() {
+  private Status status = Status.ACTIVE;
+
+  public Long getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(Long id) {
     this.id = id;
   }
 
@@ -32,11 +44,19 @@ public class Book {
     this.name = name;
   }
 
-  public Long getAuthorId() {
-    return authorId;
+  public Author getAuthor() {
+    return author;
   }
 
-  public void setAuthorId(Long authorId) {
-    this.authorId = authorId;
+  public void setAuthor(Author author) {
+    this.author = author;
+  }
+
+  public Status getStatus() {
+    return status;
+  }
+
+  public void setStatus(Status status) {
+    this.status = status;
   }
 }
